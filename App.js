@@ -1,77 +1,45 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {SafeAreaView, Text, StyleSheet} from 'react-native';
 
 const App = () => {
   return (
     <>
       <SafeAreaView>
-        <Text style={{backgroundColor: 'green', color: '#fff'}}>Hello world</Text>
-        <Text>Successfull!</Text>
+        {/* {
+          - create react-native.config.js root project
+          - run npx react-native link
+          - check asset/font in androi vs info.plist in ios
+        } */}
+        <Text style={style.text1}>Hello world</Text>
+        <Text style={style.text2}>Successfull!</Text>
+        <Text style={style.text3}>Successfull!</Text>
+        <Text style={style.text4}>Successfull!</Text>
       </SafeAreaView>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+const style = StyleSheet.create({
+  text1: {
+    fontSize: 30,
+    fontFamily: 'Langar-Regular',
+    backgroundColor: '#f00'
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  text2: {
+    fontSize: 30,
+    fontFamily: 'DancingScript-Bold',
+    backgroundColor: '#0f0',
   },
-  body: {
-    backgroundColor: Colors.white,
+  text3: {
+    fontSize: 40,
+    fontFamily: 'DancingScript-Medium',
+    backgroundColor: '#00f'
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  text4: {
+    fontSize: 40,
+    fontFamily: 'DancingScript-Regular',
+    backgroundColor: '#0ff'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+})
 
 export default App;
