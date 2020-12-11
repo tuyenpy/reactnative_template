@@ -1,77 +1,72 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {SafeAreaView, Text, FlatList, View, StyleSheet, TouchableOpacity, Button} from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import axios from 'axios';
 
-const App = () => {
-  return (
-    <>
-      <SafeAreaView>
-        <Text style={{backgroundColor: 'green', color: '#fff'}}>Hello world</Text>
-        <Text>Successfull!</Text>
-      </SafeAreaView>
-    </>
-  );
+
+class App extends React.Component {
+  state = {
+    data: null,
+    selectId: null,
+    freshing: false,
+  }
+  renderItem = ({item}) => {
+    return (
+      <TouchableOpacity style={styles.item}>
+        <Text>{item.name}</Text>
+        <Text>{item.amount}</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  onFreshing = () => {
+    console.log("refreshing");
+    this.setState({freshing: true}, this.requestApi)
+  }
+
+  componentDidMount() {
+    this.requestApi();  
+  }
+  
+  async requestApi() {
+    let res = await axios.get('https://5f3f339244212d0016fec7e3.mockapi.io/api/users');
+    this.setState({data: res.data, freshing: false});
+    
+  }
+
+  render() {
+    console.log("App rendering");
+    return (
+      <>
+        <SafeAreaView>
+          <Text style={styles.text}>FlatList Demo</Text>
+          {this.state.data && (
+            <FlatList
+              data={this.state.data}
+              renderItem={this.renderItem}
+              keyExtractor={(item) => item.id}
+              style = {{height: '70%'}}
+              refreshing={this.state.freshing}
+              onRefresh={this.onFreshing}
+            />
+          )}
+        </SafeAreaView>
+      </>
+    );
+
+  }
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  item: {
+    padding: 10,
+    paddingTop: 15,
+    marginBottom: 5,
+    backgroundColor: '#eee',
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 export default App;
